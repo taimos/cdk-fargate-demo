@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: taimos/aws-deploy
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -13,6 +13,13 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install tools
+      run: |
+        npm install -g aws-authenticate aws-cdk
     - name: Run build
       run: |
         npm ci --prefix deploy
