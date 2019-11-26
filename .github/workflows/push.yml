@@ -17,9 +17,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
-    - name: Install Tools
-      run: |
-        npm install -g aws-authenticate aws-cdk
     - name: Run build
       run: |
         npm ci --prefix deploy
